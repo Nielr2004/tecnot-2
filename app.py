@@ -730,11 +730,10 @@ def main() -> None:
     )
 
     if not _db_exists():
-        st.error(
-            "**Database not found.** Run `python seed.py` to create and seed `ecommerce.db`.",
-            icon="🚫",
-        )
-        st.stop()
+        with st.spinner("Initialising database for the first time (creating tables and seeding data)..."):
+            import seed
+            seed.main()
+        st.rerun()
 
     # ── Input card ──────────────────────────────────────────
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
